@@ -1,0 +1,23 @@
+FROM ubuntu:14.04
+
+# env vars
+ENV HOME /root
+ENV GOPATH /root/go
+ENV PATH /root/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# GOPATH
+RUN mkdir -p /root/go
+
+RUN apt-get update
+RUN apt-get install -y build-essential mercurial git subversion wget curl bzr
+
+# go 1.3 tarball
+RUN wget -qO- http://golang.org/dl/go1.3.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+
+#RUN go get github.com/go-martini/martini
+
+RUN mkdir -p $GOPATH/src/github.com/lukasrieger-dev
+RUN cd $GOPATH/src/github.com/lukasrieger-dev/; git clone git@github.com:lukasrieger-dev/chat-server.git
+WORKDIR /root/go
+EXPOSE 8080
+CMD go run src/github.com/lukasrieger-dev/chat-server/server.go
