@@ -17,7 +17,7 @@ RUN wget -qO- http://golang.org/dl/go1.3.linux-amd64.tar.gz | tar -C /usr/local 
 #RUN go get github.com/go-martini/martini
 
 RUN mkdir -p $GOPATH/src/github.com/lukasrieger-dev
-RUN cd $GOPATH/src/github.com/lukasrieger-dev/; git clone git@github.com:lukasrieger-dev/chat-server.git
+RUN cd $GOPATH/src/github.com/lukasrieger-dev/; git clone https://lukasrieger-dev:lukas89.gh@github.com/lukasrieger-dev/chat-server.git
 WORKDIR /root/go
 EXPOSE 8080
 CMD go run src/github.com/lukasrieger-dev/chat-server/server.go
