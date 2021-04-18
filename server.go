@@ -17,23 +17,23 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Hello caller 2!")
+	fmt.Fprintf(w, "Hello caller! What's your name?")
 }
 
-func formHandler(w http.ResponseWriter, r *http.Request) {
+func nameHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	fmt.Fprintf(w, "POST request successful")
+	fmt.Fprintf(w, "POST request successful\n")
 	name := r.FormValue("name")
 
-	fmt.Fprintf(w, "Name = %s\n", name)
+	fmt.Fprintf(w, "Hi %s! Great to meet you!\n", name)
 }
 
 func main() {
 	http.HandleFunc("/", helloHandler)
-	http.HandleFunc("/form", formHandler)
+	http.HandleFunc("/name", nameHandler)
 
 	fmt.Printf("Starting server at port 8080\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
